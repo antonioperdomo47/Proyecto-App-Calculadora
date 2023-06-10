@@ -1,64 +1,73 @@
 import requests
 from bs4 import BeautifulSoup
 import tkinter as tk
-from tkinter import ttk
+from tkinter import messagebox
+import tkinter.ttk as ttk
+
 
 def obtener_precio_moneda(url):
     response = requests.get(url)
 
     if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        valor_element = soup.find('span', class_='text-2xl', attrs={'data-test': 'instrument-price-last'})
+        soup = BeautifulSoup(response.content, "html.parser")
+        valor_element = soup.find(
+            "span", class_="text-2xl", attrs={"data-test": "instrument-price-last"}
+        )
 
         if valor_element:
             valor = valor_element.text.strip()
-            valor = valor.replace(',', '.')  # Reemplazar la coma por un punto decimal
-            return valor
+            valor = valor.replace(",", ".")
+            return float(valor)
         else:
-            return "No se encontró el valor de la moneda en la página."
+            return None
     else:
-        return f"No se pudo acceder a la página {url}."
+        return None
 
 
-def actualizar_valor():
-    moneda_seleccionada = combo_moneda.get()
-    url = urls[moneda_seleccionada]
-    valor = obtener_precio_moneda(url)
-    valor_formateado = f"Dollar {float(valor):.2f}"
-    label_valor.config(text=valor_formateado)
+def comparar_monedas():
+    moneda_1 = combo_moneda_1.get()
+    moneda_2 = combo_moneda_2.get()
+
+    if moneda_1 and moneda_2:
+        valor_1 = obtener_precio_moneda(urls[moneda_1])
+        valor_2 = obtener_precio_moneda(urls[moneda_2])
+
+        if valor_1 is not None and valor_2 is not None:
+            resultado = valor_1 / valor_2
+            messagebox.showinfo(
+                "Resultado", f"El resultado de la comparación es: {resultado:.2f}"
+            )
+        else:
+            messagebox.showerror(
+                "Error", "No se pudo obtener el valor de una o ambas monedas."
+            )
+    else:
+        messagebox.showerror("Error", "Debes seleccionar dos monedas.")
 
 
-# Crear ventana
 ventana = tk.Tk()
-ventana.title("Valores de Monedas")
+ventana.title("Comparador de Monedas")
 ventana.geometry("300x200")
 
-# Diccionario de monedas y sus URLs correspondientes
 urls = {
-    'EUR-USD': 'https://es.investing.com/currencies/eur-usd',
-    'GBP-USD': 'https://es.investing.com/currencies/gbp-usd',
-    'JPY-USD': 'https://es.investing.com/currencies/usd-jpy',
-    'CHF-USD': 'https://es.investing.com/currencies/usd-chf',
-    'AUD-USD': 'https://es.investing.com/currencies/aud-usd',
-    'CAD-USD': 'https://es.investing.com/currencies/usd-cad',
-    'NZD-USD': 'https://es.investing.com/currencies/nzd-usd',
-    'ZAR-USD': 'https://es.investing.com/currencies/usd-zar',
-    'TRY-USD': 'https://es.investing.com/currencies/usd-try'
+    "EUR-USD": "https://es.investing.com/currencies/eur-usd",
+    "GBP-USD": "https://es.investing.com/currencies/gbp-usd",
+    "JPY-USD": "https://es.investing.com/currencies/usd-jpy",
+    "CHF-USD": "https://es.investing.com/currencies/usd-chf",
+    "AUD-USD": "https://es.investing.com/currencies/aud-usd",
+    "CAD-USD": "https://es.investing.com/currencies/usd-cad",
+    "NZD-USD": "https://es.investing.com/currencies/nzd-usd",
+    "ZAR-USD": "https://es.investing.com/currencies/usd-zar",
+    "TRY-USD": "https://es.investing.com/currencies/usd-try",
 }
 
-# Crear Combobox
-combo_moneda = ttk.Combobox(ventana, state="normal", font=("Arial", 12), width=15)
-combo_moneda['values'] = tuple(urls.keys())
-combo_moneda.set("Escribe la moneda")  # Texto inicial
-combo_moneda.pack(pady=20)
+combo_moneda_1 = ttk.Combobox(ventana, values=list(urls.keys()))
+combo_moneda_1.pack(pady=10)
 
-# Botón para actualizar los valores
-btn_actualizar = tk.Button(ventana, text="Actualizar", command=actualizar_valor)
-btn_actualizar.pack()
+combo_moneda_2 = ttk.Combobox(ventana, values=list(urls.keys()))
+combo_moneda_2.pack(pady=10)
 
-# Crear etiqueta para mostrar el valor
-label_valor = tk.Label(ventana, text="", font=("Arial", 14))
-label_valor.pack(pady=20)
+btn_comparar = tk.Button(ventana, text="Comparar", command=comparar_monedas)
+btn_comparar.pack(pady=10)
 
-# Iniciar el bucle principal de la ventana
 ventana.mainloop()
