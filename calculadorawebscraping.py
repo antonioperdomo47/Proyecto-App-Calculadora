@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import tkinter as tk
+from tkinter import ttk
 
 def obtener_precio_moneda(url):
     response = requests.get(url)
@@ -20,48 +21,44 @@ def obtener_precio_moneda(url):
 
 
 def actualizar_valor():
-    url_euro_dolar = 'https://es.investing.com/currencies/eur-usd'
-    url_gbp_dolar = 'https://es.investing.com/currencies/gbp-usd'
-    url_jpy_dolar = 'https://es.investing.com/currencies/usd-jpy'
-    valor_euro_dolar = obtener_precio_moneda(url_euro_dolar)
-    valor_gbp_dolar = obtener_precio_moneda(url_gbp_dolar)
-    valor_jpy_dolar = obtener_precio_moneda(url_jpy_dolar)
+    moneda_seleccionada = combo_moneda.get()
+    url = urls[moneda_seleccionada]
+    valor = obtener_precio_moneda(url)
+    valor_formateado = f"Dollar {float(valor):.2f}"
+    label_valor.config(text=valor_formateado)
 
-    valor_formateado_euro_dolar = f"Dollar {float(valor_euro_dolar):.2f}"
-    valor_formateado_gbp_dolar = f"Dollar {float(valor_gbp_dolar):.2f}"
-    valor_formateado_jpy_dolar = f"Dollar {float(valor_jpy_dolar):.2f}"
-
-    label_valor_euro.config(text=valor_formateado_euro_dolar)
-    label_valor_gbp.config(text=valor_formateado_gbp_dolar)
-    label_valor_jpy.config(text=valor_formateado_jpy_dolar)
 
 # Crear ventana
 ventana = tk.Tk()
 ventana.title("Valores de Monedas")
-ventana.geometry("300x300")
+ventana.geometry("300x200")
 
-# Crear etiquetas para mostrar los valores
-label_euro = tk.Label(ventana, text="EUR-USD", font=("Arial", 14))
-label_euro.pack()
-label_valor_euro = tk.Label(ventana, text="", font=("Arial", 24))
-label_valor_euro.pack(pady=10)
+# Diccionario de monedas y sus URLs correspondientes
+urls = {
+    'EUR-USD': 'https://es.investing.com/currencies/eur-usd',
+    'GBP-USD': 'https://es.investing.com/currencies/gbp-usd',
+    'JPY-USD': 'https://es.investing.com/currencies/usd-jpy',
+    'CHF-USD': 'https://es.investing.com/currencies/usd-chf',
+    'AUD-USD': 'https://es.investing.com/currencies/aud-usd',
+    'CAD-USD': 'https://es.investing.com/currencies/usd-cad',
+    'NZD-USD': 'https://es.investing.com/currencies/nzd-usd',
+    'ZAR-USD': 'https://es.investing.com/currencies/usd-zar',
+    'TRY-USD': 'https://es.investing.com/currencies/usd-try'
+}
 
-label_gbp = tk.Label(ventana, text="GBP-USD", font=("Arial", 14))
-label_gbp.pack()
-label_valor_gbp = tk.Label(ventana, text="", font=("Arial", 24))
-label_valor_gbp.pack(pady=10)
-
-label_jpy = tk.Label(ventana, text="JPY-USD", font=("Arial", 14))
-label_jpy.pack()
-label_valor_jpy = tk.Label(ventana, text="", font=("Arial", 24))
-label_valor_jpy.pack(pady=10)
+# Crear Combobox
+combo_moneda = ttk.Combobox(ventana, state="normal", font=("Arial", 12), width=15)
+combo_moneda['values'] = tuple(urls.keys())
+combo_moneda.set("Escribe la moneda")  # Texto inicial
+combo_moneda.pack(pady=20)
 
 # Botón para actualizar los valores
 btn_actualizar = tk.Button(ventana, text="Actualizar", command=actualizar_valor)
 btn_actualizar.pack()
 
-# Actualizar los valores inicialmente
-actualizar_valor()
+# Crear etiqueta para mostrar el valor
+label_valor = tk.Label(ventana, text="", font=("Arial", 14))
+label_valor.pack(pady=20)
 
 # Iniciar el bucle principal de la ventana
 ventana.mainloop()
