@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import tkinter as tk
-from tkinter import messagebox
 import tkinter.ttk as ttk
 
 
@@ -34,15 +33,15 @@ def comparar_monedas():
 
         if valor_1 is not None and valor_2 is not None:
             resultado = valor_1 / valor_2
-            messagebox.showinfo(
-                "Resultado", f"El resultado de la comparación es: {resultado:.2f}"
+            label_resultado.config(
+                text=f"El resultado de la comparación es: {resultado:.2f}"
             )
         else:
-            messagebox.showerror(
-                "Error", "No se pudo obtener el valor de una o ambas monedas."
+            label_resultado.config(
+                text="No se pudo obtener el valor de una o ambas monedas."
             )
     else:
-        messagebox.showerror("Error", "Debes seleccionar dos monedas.")
+        label_resultado.config(text="Debes seleccionar dos monedas.")
 
 
 ventana = tk.Tk()
@@ -69,5 +68,8 @@ combo_moneda_2.pack(pady=10)
 
 btn_comparar = tk.Button(ventana, text="Comparar", command=comparar_monedas)
 btn_comparar.pack(pady=10)
+
+label_resultado = tk.Label(ventana)
+label_resultado.pack(pady=10)
 
 ventana.mainloop()
