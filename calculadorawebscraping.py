@@ -89,12 +89,18 @@ urls = {
     "TRY-USD": "https://es.investing.com/currencies/usd-try",  # Necesito mostrar valor del TRY
 }
 
+label_moneda_nacional = tk.Label(ventana, text="Mi moneda Nacional")
+label_moneda_nacional.pack(pady=(10, 0))
+
 combo_moneda_1 = ttk.Combobox(ventana, values=list(urls.keys()))
 combo_moneda_1.pack(pady=10)
 combo_moneda_1.bind("<<ComboboxSelected>>", actualizar_valor_moneda1)
 
 label_valor_moneda1 = tk.Label(ventana)
 label_valor_moneda1.pack()
+
+label_pais_visita = tk.Label(ventana, text="País que visito")
+label_pais_visita.pack(pady=(10, 0))
 
 combo_moneda_2 = ttk.Combobox(ventana, values=list(urls.keys()))
 combo_moneda_2.pack(pady=10)
