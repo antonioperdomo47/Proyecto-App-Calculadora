@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
+from ttkwidgets.autocomplete import AutocompleteCombobox
 
 
 def obtener_precio_moneda(url):
@@ -75,24 +76,22 @@ def comparar_monedas():
 
 ventana = tk.Tk()
 ventana.title("Comparador de Monedas")
-ventana.geometry("400x250")
+ventana.geometry("400x300")
 
 urls = {
-    "EUR-USD": "https://es.investing.com/currencies/eur-usd",  # Necesito mostrar valor del EUR
-    "GBP-USD": "https://es.investing.com/currencies/gbp-usd",  # Necesito mostrar valor del GBP
-    "JPY-USD": "https://es.investing.com/currencies/usd-jpy",  # Necesito mostrar valor del JPY
-    "CHF-USD": "https://es.investing.com/currencies/usd-chf",  # Necesito mostrar valor del CHF
-    "AUD-USD": "https://es.investing.com/currencies/aud-usd",  # Necesito mostrar valor del AUD
-    "CAD-USD": "https://es.investing.com/currencies/usd-cad",  # Necesito mostrar valor del CAD
-    "NZD-USD": "https://es.investing.com/currencies/nzd-usd",  # Necesito mostrar valor del NZD
-    "ZAR-USD": "https://es.investing.com/currencies/usd-zar",  # Necesito mostrar valor del ZAD
-    "TRY-USD": "https://es.investing.com/currencies/usd-try",  # Necesito mostrar valor del TRY
+    "EUR-USD": "https://es.investing.com/currencies/usd-eur",
+    "DOLAR": "https://es.investing.com/currencies/eur-usd",
+    "GBP-USD": "https://es.investing.com/currencies/usd-gbp",
+    "JPY-USD": "https://es.investing.com/currencies/usd-jpy",
+    "CHF-USD": "https://es.investing.com/currencies/usd-chf",
+    "AUD-USD": "https://es.investing.com/currencies/usd-aud",
+    "CAD-USD": "https://es.investing.com/currencies/usd-cad",
 }
 
 label_moneda_nacional = tk.Label(ventana, text="Mi moneda Nacional")
 label_moneda_nacional.pack(pady=(10, 0))
 
-combo_moneda_1 = ttk.Combobox(ventana, values=list(urls.keys()))
+combo_moneda_1 = AutocompleteCombobox(ventana, completevalues=list(urls.keys()))
 combo_moneda_1.pack(pady=10)
 combo_moneda_1.bind("<<ComboboxSelected>>", actualizar_valor_moneda1)
 
@@ -102,7 +101,7 @@ label_valor_moneda1.pack()
 label_pais_visita = tk.Label(ventana, text="País que visito")
 label_pais_visita.pack(pady=(10, 0))
 
-combo_moneda_2 = ttk.Combobox(ventana, values=list(urls.keys()))
+combo_moneda_2 = AutocompleteCombobox(ventana, completevalues=list(urls.keys()))
 combo_moneda_2.pack(pady=10)
 combo_moneda_2.bind("<<ComboboxSelected>>", actualizar_valor_moneda2)
 

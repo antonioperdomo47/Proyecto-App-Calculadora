@@ -1,6 +1,32 @@
-optionMenu
+Mi fuente de monedas es https://es.investing.com/currencies/single-currency-crosses
+Quede en Argentina
 
-Combobox
-
-Selector en menu
-
+    "NZD-USD": "https://es.investing.com/currencies/usd-nzd",  # Necesito mostrar valor del NZD
+    "ZAR-USD": "https://es.investing.com/currencies/usd-zar",  # Necesito mostrar valor del ZAD
+    "TRY-USD": "https://es.investing.com/currencies/usd-try",  # Necesito mostrar valor del TRY
+    "MXN-USD": "https://es.investing.com/currencies/usd-mxn",  # Necesito mostrar valor del MXN
+    "PLN-USD": "https://es.investing.com/currencies/usd-pln",  # Necesito mostrar valor del PLN
+    "SEK-USD": "https://es.investing.com/currencies/usd-sek",  # Necesito mostrar valor del SEK
+    "SGD-USD": "https://es.investing.com/currencies/usd-sgd",  # Necesito mostrar valor del SGD
+    "USD-DKK": "https://es.investing.com/currencies/usd-dkk",  # Necesito mostrar valor del DKK
+    "USD-NOK": "https://es.investing.com/currencies/usd-nok",  # Necesito mostrar valor del NOK
+    "USD-ILS": "https://es.investing.com/currencies/usd-ils",  # Necesito mostrar valor del ILS
+    "USD-HUF": "https://es.investing.com/currencies/usd-huf",  # Necesito mostrar valor del HUF
+    "USD-CZK": "https://es.investing.com/currencies/usd-czk",  # Necesito mostrar valor del CZK
+    "USD-THB": "https://es.investing.com/currencies/usd-thb",  # Necesito mostrar valor del THB
+    "USD-AED": "https://es.investing.com/currencies/usd-aed",  # Necesito mostrar valor del AED
+    "USD-JOD": "https://es.investing.com/currencies/usd-jod",  # Necesito mostrar valor del JOD
+    "USD-KWD": "https://es.investing.com/currencies/usd-kwd",  # Necesito mostrar valor del KWD
+    "USD-HKD": "https://es.investing.com/currencies/usd-hkd",  # Necesito mostrar valor del HKD
+    "USD-SAR": "https://es.investing.com/currencies/usd-sar",  # Necesito mostrar valor del SAR
+    "USD-INR": "https://es.investing.com/currencies/usd-inr",  # Necesito mostrar valor del INR
+    "USD-KRW": "https://es.investing.com/currencies/usd-krw",  # Necesito mostrar valor del KRW
+    "BRL-USD": "https://es.investing.com/currencies/usd-brl",  # Necesito mostrar valor del BRL
+    "FJD-USD": "https://es.investing.com/currencies/usd-fjd",  # Necesito mostrar valor del FJD
+    "GHS-USD": "https://es.investing.com/currencies/usd-ghs",  # Necesito mostrar valor del GHS
+    "KYD-USD": "https://es.investing.com/currencies/usd-kyd",  # Necesito mostrar valor del KYD
+    "USD-ALL": "https://es.investing.com/currencies/usd-all",  # Necesito mostrar valor del ALL
+    "USD-AMD": "https://es.investing.com/currencies/usd-amd",  # Necesito mostrar valor del AMD
+    "USD-ANG": "https://es.investing.com/currencies/usd-ang",  # Necesito mostrar valor del ANG
+    "USD-ARS": "https://es.investing.com/currencies/usd-ars",  # Necesito mostrar valor del ARS
+Continua...
