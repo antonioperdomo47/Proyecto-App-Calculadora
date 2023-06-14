@@ -30,7 +30,7 @@ class ComparadorMonedas(App):
 
         for moneda in self.urls.keys():
             btn = Button(text=moneda, size_hint_y=None, height=30)
-            btn.bind(on_release=lambda btn: self.combo_moneda_1.select(btn.text))
+            btn.bind(on_release=lambda btn: self.seleccionar_moneda_1(btn.text))
             self.combo_moneda_1.add_widget(btn)
 
         self.btn_moneda_1 = Button(
@@ -50,7 +50,7 @@ class ComparadorMonedas(App):
 
         for moneda in self.urls.keys():
             btn = Button(text=moneda, size_hint_y=None, height=30)
-            btn.bind(on_release=lambda btn: self.combo_moneda_2.select(btn.text))
+            btn.bind(on_release=lambda btn: self.seleccionar_moneda_2(btn.text))
             self.combo_moneda_2.add_widget(btn)
 
         self.btn_moneda_2 = Button(
@@ -92,6 +92,14 @@ class ComparadorMonedas(App):
         else:
             return None
 
+    def seleccionar_moneda_1(self, moneda):
+        self.btn_moneda_1.text = moneda
+        self.combo_moneda_1.dismiss()
+
+    def seleccionar_moneda_2(self, moneda):
+        self.btn_moneda_2.text = moneda
+        self.combo_moneda_2.dismiss()
+
     def actualizar_valor_moneda1(self, instance, value):
         moneda_1 = value
 
@@ -117,27 +125,34 @@ class ComparadorMonedas(App):
             self.label_valor_moneda2.text = ""
 
     def comparar_monedas(self, instance):
-        moneda_1 = self.combo_moneda_1.button.text
-        moneda_2 = self.combo_moneda_2.button.text
-        cantidad = self.entry_cantidad.text
+        try:
+            moneda_1 = self.btn_moneda_1.text
+            moneda_2 = self.btn_moneda_2.text
+            cantidad = self.entry_cantidad.text
 
-        if moneda_1 and moneda_2 and cantidad:
-            valor_1 = self.obtener_precio_moneda(self.urls[moneda_1])
-            valor_2 = self.obtener_precio_moneda(self.urls[moneda_2])
+            if (
+                moneda_1 != "Seleccionar moneda"
+                and moneda_2 != "Seleccionar moneda"
+                and cantidad
+            ):
+                valor_1 = self.obtener_precio_moneda(self.urls[moneda_1])
+                valor_2 = self.obtener_precio_moneda(self.urls[moneda_2])
 
-            if valor_1 is not None and valor_2 is not None:
-                resultado = (valor_1 / valor_2) * float(cantidad)
-                self.label_resultado.text = (
-                    f"El resultado de la comparación es: {resultado:.2f}"
-                )
+                if valor_1 is not None and valor_2 is not None:
+                    resultado = (valor_1 / valor_2) * float(cantidad)
+                    self.label_resultado.text = (
+                        f"El resultado de la comparación es: {resultado:.2f}"
+                    )
+                else:
+                    self.label_resultado.text = (
+                        "No se pudo obtener el valor de una o ambas monedas."
+                    )
             else:
                 self.label_resultado.text = (
-                    "No se pudo obtener el valor de una o ambas monedas."
+                    "Debes seleccionar dos monedas y especificar una cantidad."
                 )
-        else:
-            self.label_resultado.text = (
-                "Debes seleccionar dos monedas y especificar una cantidad."
-            )
+        except Exception as e:
+            print(f"Error al comparar monedas: {e}")
 
 
 ComparadorMonedas().run()
