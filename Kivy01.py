@@ -65,7 +65,9 @@ class ComparadorMonedas(App):
         self.entry_cantidad = TextInput(hint_text="Cantidad", multiline=False)
         self.layout.add_widget(self.entry_cantidad)
 
-        self.btn_comparar = Button(text="Comparar", size_hint=(1, None), height=40)
+        self.btn_comparar = Button(
+            text="Cuanto me cuesta?", size_hint=(1, None), height=40
+        )
         self.btn_comparar.bind(on_release=self.comparar_monedas)
         self.layout.add_widget(self.btn_comparar)
 
